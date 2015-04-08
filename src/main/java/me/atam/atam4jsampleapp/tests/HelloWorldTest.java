@@ -1,17 +1,14 @@
 package me.atam.atam4jsampleapp.tests;
 
-import me.atam.atam4j.configuration.ConfigLoader;
-import me.atam.atam4jsampleapp.configuration.TestConfiguration;
+import me.atam.atam4jsampleapp.testssupport.AbstractAcceptanceTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class HelloWorldTest {
-
-    TestConfiguration testConfig = new ConfigLoader<TestConfiguration>(TestConfiguration.class, "default-test-config.yml").getTestConfig();
+public class HelloWorldTest extends AbstractAcceptanceTest {
 
     @Test
     public void testHelloWorld() throws Exception {
         System.out.println("Hello World Test!");
-        Assert.assertEquals("bar", testConfig.getFoo());
+        Assert.assertEquals("bar", getConfig().getFoo());
     }
 }

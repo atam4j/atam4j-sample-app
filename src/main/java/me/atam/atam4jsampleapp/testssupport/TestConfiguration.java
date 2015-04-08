@@ -1,4 +1,4 @@
-package me.atam.atam4jsampleapp.configuration;
+package me.atam.atam4jsampleapp.testssupport;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
