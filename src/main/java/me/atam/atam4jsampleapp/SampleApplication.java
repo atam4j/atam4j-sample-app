@@ -5,12 +5,14 @@ import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import me.atam.atam4j.AcceptanceTestHealthCheckManager;
-import me.atam.atam4jsampleapp.tests.HelloWorldTest;
+import me.atam.atam4j.Atam4j;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class SampleApplication extends Application<Configuration> {
+
+    public static final int INITIAL_DELAY = 1;
 
     public static void main(String[] args) throws Exception {
         if (args == null || args.length == 0) {
@@ -27,10 +29,8 @@ public class SampleApplication extends Application<Configuration> {
 
     @Override
     public void run(final Configuration configuration, final Environment environment) throws Exception {
-
         // enable starting dw app without any resources defined
         environment.jersey().disable();
-
-        new AcceptanceTestHealthCheckManager(environment, HelloWorldTest.class).initialise();
+        new Atam4j.Atam4jBuilder(environment).withUnit(TimeUnit.MILLISECONDS).withInitialDelay(INITIAL_DELAY).build().initialise();
     }
 }
