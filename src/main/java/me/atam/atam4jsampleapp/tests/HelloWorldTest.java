@@ -9,11 +9,20 @@ import org.junit.Test;
 @Monitor
 public class HelloWorldTest {
 
-    TestConfiguration testConfig = new ConfigLoader<>(TestConfiguration.class, "default-test-config.yml").getTestConfig();
+    private static TestConfiguration testConfig;
+
+    public HelloWorldTest() {
+        String env = System.getProperty("APP.ENV") == null ? "local" : System.getProperty("APP.ENV");
+        String configFileName = String.format("test-config-%s.yml", env);
+        testConfig = new ConfigLoader<>(TestConfiguration.class, configFileName).getTestConfig();
+    }
 
     @Test
     public void testHelloWorld() throws Exception {
         System.out.println("Hello World Test!");
         Assert.assertEquals("bar", testConfig.getFoo());
+
+        String env = System.getProperty("APP.ENV") == null ? "local" : System.getProperty("APP.ENV");
+        Assert.assertEquals(env, testConfig.getEnv());
     }
 }
