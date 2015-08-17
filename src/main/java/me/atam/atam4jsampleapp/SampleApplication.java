@@ -1,5 +1,6 @@
 package me.atam.atam4jsampleapp;
 
+import com.codahale.metrics.health.HealthCheckRegistry;
 import com.google.common.io.Resources;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -31,7 +32,8 @@ public class SampleApplication extends Application<Configuration> {
     public void run(final Configuration configuration, final Environment environment) throws Exception {
         // enable starting dw app without any resources defined
         environment.jersey().disable();
-        new Atam4j.Atam4jBuilder(environment)
+
+        new Atam4j.Atam4jBuilder(environment.healthChecks())
                 .withUnit(TimeUnit.MILLISECONDS)
                 .withInitialDelay(INITIAL_DELAY)
                 .withPeriod(5000)
