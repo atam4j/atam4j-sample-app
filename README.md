@@ -2,7 +2,9 @@ atam4j-sample-app
 =================
 
 ## Introduction
-This sample dropwizard app demonstrates the use of atam4j.
+This sample dropwizard app demonstrates the use of atam4j.  The app defines one test [GoogleTest](src/main/java/me/atam/atam4jsampleapp/GoogleTest.java) 
+that checks the google homepage and ensures that it is returning an OK response.  When the application is run, this test 
+is run continuously with it's status exposed via the /healthcheck uri.
 
 ## How are the tests written?
 Standard Junit based tests are written and added to the [src/main/java](src/main/java) folder under the 
@@ -57,23 +59,3 @@ directory configuration for the maven surefire plugin needs to be overridden. Th
  
 The above config override is needed as the atam4j based tests are stored in the `src` directory instead of the `test` 
 directory so that the dropwizard app using atam4j can run them on a schedule.
- 
-## Environment specific configuration for tests
-If you want to pass different environment specific configuration to your tests, you can use the 
-`me.atam.atam4j.configuration.ConfigLoader` packaged as part of Atam4j along with the 
-`java.lang.System.getProperty(String key)` method.
- 
-Example:
-    Refer to the [me.atam.atam4jsampleapp.tests.HelloWorldTest.java](src/main/java/me/atam/atam4jsampleapp/tests/HelloWorldTest.java)
-    Sample code block:       
-  
-        String env = System.getProperty("APP.ENV") == null ? "local" : System.getProperty("APP.ENV");
-        String configFileName = String.format("test-config-%s.yml", env);
-        testConfig = new ConfigLoader<>(TestConfiguration.class, configFileName).getTestConfig();
-        
-Once setup, simple pass a System property with the env label as follows:
-
-        -DAPP.ENV={add env label here. ex: test}
-
-Make sure an environment specific config file exists in the [src/main/resources](src/main/resources) folder.        
-        

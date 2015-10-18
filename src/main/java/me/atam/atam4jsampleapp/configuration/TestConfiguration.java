@@ -5,23 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TestConfiguration {
 
-    private String foo;
+    private String googleURL;
 
-    private String env;
-
-    public String getFoo() {
-        return foo;
+    public String getGoogleURL() {
+        return googleURL;
     }
 
-    public void setFoo(String foo) {
-        this.foo = foo;
-    }
 
-    public String getEnv() {
-        return env;
-    }
-
-    public void setEnv(String env) {
-        this.env = env;
-    }
 }
