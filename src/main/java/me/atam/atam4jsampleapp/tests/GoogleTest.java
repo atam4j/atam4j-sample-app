@@ -31,7 +31,7 @@ public class GoogleTest {
             response = jerseyClient.target(testConfig.getGoogleURL()).request().get();
             assertThat(response.getStatus(), equalTo(Response.Status.OK.getStatusCode()));
         }
-        catch (Exception e){
+        finally {
             if (response != null){
                 response.close();
             }
