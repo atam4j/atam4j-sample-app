@@ -24,7 +24,6 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/../target/atam4j-sample-app-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
-        <!-- For some reason I had to add this dependency to force surefire to recognise my tests as junit 4.7 so it would use annotations>  -->
 
     </dependencies>
     <build>
@@ -37,6 +36,10 @@
                     <dependenciesToScan>
                         <dependency>me.atam:atam4j-sample-app-uber</dependency>
                     </dependenciesToScan>
+                    <!--Getting surefire to run tests in a package seems a bit fiddly, this is the best I came up with.
+                    Without this include, surefire will try and run every "test" it can find, these also include the
+                    junit3 style tests that just go on naming convention.  I think surefire could be improved in this
+                    area after battling with it!-->
                     <includes>
                         <include>me.atam.atam4jsampleapp.*.*</include>
                     </includes>
@@ -44,6 +47,7 @@
                 </configuration>
                 <dependencies>
                     <dependency>
+                        <!--This forces surefire to use the junit4 provider-->
                         <groupId>org.apache.maven.surefire</groupId>
                         <!-- Use the older JUnit 4 provider -->
                         <artifactId>surefire-junit47</artifactId>
