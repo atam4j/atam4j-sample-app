@@ -3,36 +3,41 @@ package me.atam.atam4jsampleapp;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class HealthCheckResult {
-    @JsonProperty(value = "Acceptance Tests HealthCheck")
-    private AcceptanceTestsHealthCheckResult acceptanceTestsHealthCheckResult;
 
-    public AcceptanceTestsHealthCheckResult getAcceptanceTestsHealthCheckResult() {
-        return acceptanceTestsHealthCheckResult;
+    @JsonProperty public List<Test> tests;
+
+    public HealthCheckResult() {
     }
 
-    public class AcceptanceTestsHealthCheckResult{
+    public static class Test{
+        @JsonProperty public String testClass;
+        @JsonProperty public String testName;
+        @JsonProperty public String category;
+        @JsonProperty public boolean passed;
 
-        private boolean healthy;
+        public Test() {
 
-        private String message;
-
-        public boolean isHealthy() {
-            return healthy;
         }
 
-        public void setHealthy(boolean healthy) {
-            this.healthy = healthy;
+        @Override
+        public String toString() {
+            return "Test{" +
+                    "testClass='" + testClass + '\'' +
+                    ", testName='" + testName + '\'' +
+                    ", category='" + category + '\'' +
+                    ", passed=" + passed +
+                    '}';
         }
+    }
 
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
+    @Override
+    public String toString() {
+        return "HealthCheckResult{" +
+                "tests=" + tests +
+                '}';
     }
 }

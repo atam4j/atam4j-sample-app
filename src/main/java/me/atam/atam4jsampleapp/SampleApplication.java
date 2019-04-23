@@ -30,10 +30,7 @@ public class SampleApplication extends Application<Configuration> {
 
     @Override
     public void run(final Configuration configuration, final Environment environment) throws Exception {
-        // enable starting dw app without any resources defined
-        environment.jersey().disable();
-
-        new Atam4j.Atam4jBuilder(environment.healthChecks())
+        new Atam4j.Atam4jBuilder(environment.jersey())
                 .withUnit(TimeUnit.MILLISECONDS)
                 .withInitialDelay(INITIAL_DELAY)
                 .withPeriod(5000)
